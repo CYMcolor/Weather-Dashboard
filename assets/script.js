@@ -1,11 +1,15 @@
 var key = 'c8502ebcdb7a83fd03a62d0aaaafa07c';
-//var coordURL = 'https://api.openweathermap.org/data/2.5/weather?q=Houston,Texas&appid='+ key;
-//var  cityURL = 'https://api.openweathermap.org/data/2.5/weather?lat='
-//                  + lat + '&lon='+ lon +'&appid='+ key;
-getCoordAPI();
+var city = 'Houston,Texas';
+
+$( document ).ready(function () 
+{
+    getCoordAPI();
+
+});
+
 function getCoordAPI()
 {
-    var coordURL = 'https://api.openweathermap.org/data/2.5/weather?q=Houston,Texas&appid='+ key;
+    var coordURL = 'https://api.openweathermap.org/data/2.5/weather?q='+city+'&appid='+ key;
     $.ajax(
     {
         url: coordURL,
@@ -24,8 +28,7 @@ function getCurrDayAPI(lat, lon)
 {
     var  cityURL = 'https://api.openweathermap.org/data/2.5/weather?lat='
                   + lat + '&lon='+ lon +'&appid='+ key;
-    console.log('lat city: '+ lat);
-    console.log('lon city: '+ lon);
+    var $icon = $('#current').children('ul').children('.icon').children('img');
     $.ajax
     ({
         url: cityURL,
@@ -35,7 +38,8 @@ function getCurrDayAPI(lat, lon)
     {
         console.log(response);
         var icon = response.weather[0].icon;
-        console.log(icon);
+        $icon.attr('src','http://openweathermap.org/img/wn/'+icon+'@2x.png');
+        console.log($icon);
         var temp = response.main.temp;
         console.log(temp);
         var wind = response.wind.speed;
@@ -50,7 +54,7 @@ function get5DayAPI(lat, lon)
 {
     var  cityURL = 'https://api.openweathermap.org/data/2.5/forecast?lat='
                   + lat + '&lon='+ lon +'&appid='+ key;
-                  
+
     $.ajax
     ({
         url: cityURL,
