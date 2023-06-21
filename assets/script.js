@@ -1,5 +1,5 @@
 var key = 'c8502ebcdb7a83fd03a62d0aaaafa07c';
-var city = 'Houston, Texas';
+var city = 'Houston';
 console.log(city);
 
 $( document ).ready(function () 
@@ -30,6 +30,7 @@ function getCurrDayAPI(lat, lon)
 {
     var  cityURL = 'https://api.openweathermap.org/data/2.5/weather?lat='
                   + lat + '&lon='+ lon +'&appid='+ key;
+    var $date = $('#current').children('.date');
     var $icon = $('#current').children('ul').children('.icon').children('img');
     var $temp =  $('#current').children('ul').children('.temp');
     var $wind =  $('#current').children('ul').children('.wind');
@@ -42,6 +43,10 @@ function getCurrDayAPI(lat, lon)
     .then(function(response)
     {
         console.log(response);
+
+        var date = response.dt;
+        var newDate = new Date(date*1000);
+        $date.text(newDate.toDateString());
 
         var icon = response.weather[0].icon;
         $icon.attr('src','http://openweathermap.org/img/wn/'+icon+'@2x.png');
@@ -61,7 +66,7 @@ function getCurrDayAPI(lat, lon)
 
 function get5DayAPI(lat, lon)
 {
-    var  cityURL = 'https://api.openweathermap.org/data/2.5/forecast?lat='
+    var  cityURL = 'https://api.openweathermap.org/data/2.5/onecall?lat='
                   + lat + '&lon='+ lon +'&appid='+ key;
     
     $.ajax
@@ -72,29 +77,34 @@ function get5DayAPI(lat, lon)
     .then(function(response)
     {
         console.log(response);
-        for(var i = 0; i < 5; i++)
-        {
-            var $icon = $('#day' + i).children('ul').children('.icon').children('img');
-            var $temp =  $('#day' + i).children('ul').children('.temp');
-            var $wind =  $('#day' + i).children('ul').children('.wind');
-            var $humd =  $('#day' + i).children('ul').children('.humd');
-
-            var icon = response.list[i].weather[0].icon;
-            $icon.attr('src','http://openweathermap.org/img/wn/'+icon+'@2x.png');
-            $icon.attr('alt', response.list[i].weather[0].description);
+        // for(var i = 0; i < 5; i++)
+        // {
+        //     var $date = $('#day' + i).children('.date');
+        //     var $icon = $('#day' + i).children('ul').children('.icon').children('img');
+        //     var $temp =  $('#day' + i).children('ul').children('.temp');
+        //     var $wind =  $('#day' + i).children('ul').children('.wind');
+        //     var $humd =  $('#day' + i).children('ul').children('.humd');
             
-            var temp = response.list[i].main.temp;
-            $temp.text('Temp: '+ temp + ' Kelvin ');
+        //     var newI = i *8;
 
-            var wind = response.list[i].wind.speed;
-            $wind.text('Wind: ' + wind + 'MPH');
+        //     var date = response.list[newI].dt;
+        //     var newDate = new Date(date*1000);
+        //     $date.text(newDate.toUTCString());
 
-            var humd = response.list[i].main.humidity;
-            $humd.text('Humidity: ' + humd + '%');
+        //     var icon = response.list[newI].weather[0].icon;
+        //     $icon.attr('src','http://openweathermap.org/img/wn/'+icon+'@2x.png');
+        //     $icon.attr('alt', response.list[newI].weather[0].description);
+            
+        //     var temp = response.list[newI].main.temp;
+        //     $temp.text('Temp: '+ temp + ' Kelvin ');
 
+        //     var wind = response.list[newI].wind.speed;
+        //     $wind.text('Wind: ' + wind + 'MPH');
 
+        //     var humd = response.list[newI].main.humidity;
+        //     $humd.text('Humidity: ' + humd + '%');
 
-        }
+        // }
 
     })
 }
