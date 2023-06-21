@@ -1,69 +1,65 @@
-
 var key = 'c8502ebcdb7a83fd03a62d0aaaafa07c';
-var coordURL = 'https://api.openweathermap.org/data/2.5/weather?q=Houston,Texas&appid='+ key;
-
-var lat, lon;
-
-coord = getCoord();
-console.log(coord  );
-function getCoord()
+//var coordURL = 'https://api.openweathermap.org/data/2.5/weather?q=Houston,Texas&appid='+ key;
+//var  cityURL = 'https://api.openweathermap.org/data/2.5/weather?lat='
+//                  + lat + '&lon='+ lon +'&appid='+ key;
+getCoordAPI();
+function getCoordAPI()
 {
-    var coord = {lat: lat, lon: lon};
+    var coordURL = 'https://api.openweathermap.org/data/2.5/weather?q=Houston,Texas&appid='+ key;
     $.ajax(
     {
         url: coordURL,
-        type: "POST",
-        data: JSON.stringify(coord),
-        success: function(response)
-        {
-            
-        },
-        error: function(error)
-        {
-            console.log(error)
-        }
-            
+        method: "GET"
     })
-    .then(function (response)
+    .then(function(response)
+    {
+        var lat = response.coord.lat;
+        var lon = response.coord.lon;
+        getCityAPI(lat,lon);
+       
+    })
+}
+
+function getCityAPI(lat, lon)
+{
+    var  cityURL = 'https://api.openweathermap.org/data/2.5/weather?lat='
+                  + lat + '&lon='+ lon +'&appid='+ key;
+    console.log('lat city: '+ lat);
+    console.log('lon city: '+ lon);
+    $.ajax
+    ({
+        url: cityURL,
+        method: "GET"
+    })
+    .then(function(response)
     {
         console.log(response);
-    });
-    console.log(coord  );
- }
+        var temp = response.main.temp;
+        console.log(temp);
 
-    // console.log('lat city: '+ lat);
-// console.log('lon city: '+ lon);
-// function getApi() 
-// {
-//     //get the city's latitude and longitude
-//     return fetch(coordURL)
-//       .then(function (response) 
-//       {
-//         return response.json();
-//       })
-//       .then(function (data) 
-//       {
-//         console.log(data);
-//         return data.coord;
-        
-//       });
-    
-// }
+    })
+}
 
-//   lat = data.coord.lat;
-    // lon = data.coord.lon;
+/*
+//async method to store values globally
+var coord;
+getCoordAPI();
 
-    // get the city's weather info
-    // var  cityURL = 'https://api.openweathermap.org/data/2.5/weather?lat='
-    //                 + lat + '&lon='+ lon +'&appid='+ key;
-    
-    // fetch(cityURL)
-    //   .then(function (response) 
-    //   {
-    //     return response.json();
-    //   })
-    //   .then(function (data) 
-    //   {
-    //     console.log(data);
-        
-    //   })
+console.log(JSON.parse(coord));
+function getCoordAPI()
+{
+    var coordURL = 'https://api.openweathermap.org/data/2.5/weather?q=Houston,Texas&appid='+ key;
+    $.ajax(
+    {
+        async: false,
+        url: coordURL,
+        method: "GET",
+        dataType: 'json',
+        success:function(data)
+        {
+            coord = JSON.stringify(data);
+        } 
+    })
+
+}
+*/
