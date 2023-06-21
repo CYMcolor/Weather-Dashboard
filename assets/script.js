@@ -28,8 +28,9 @@ function getCoordAPI()
 
 function getCurrDayAPI(lat, lon)
 {
-    var  cityURL = 'https://api.openweathermap.org/data/2.5/weather?lat='
-                  + lat + '&lon='+ lon +'&appid='+ key;
+    var  cityURL = 'https://api.openweathermap.org/data/2.5/onecall?lat='
+                    + lat + '&lon='+ lon +'&units=imperial'+
+                    '&exclude=minutely,hourly'+'&appid='+ key;
     var $date = $('#current').children('.date');
     var $icon = $('#current').children('ul').children('.icon').children('img');
     var $temp =  $('#current').children('ul').children('.temp');
@@ -44,21 +45,21 @@ function getCurrDayAPI(lat, lon)
     {
         console.log(response);
 
-        var date = response.dt;
+        var date = response.current.dt;
         var newDate = new Date(date*1000);
         $date.text(newDate.toDateString());
 
-        var icon = response.weather[0].icon;
+        var icon = response.current.weather[0].icon;
         $icon.attr('src','http://openweathermap.org/img/wn/'+icon+'@2x.png');
-        $icon.attr('alt', response.weather[0].description);
+        $icon.attr('alt', response.current.weather[0].description);
 
-        var temp = response.main.temp;
-        $temp.text('Temp: '+ temp + ' Kelvin ');
+        var temp = response.current.temp;
+        $temp.text('Temp: '+ temp + ' Farenheit ');
 
-        var wind = response.wind.speed;
+        var wind = response.current.wind_speed;
         $wind.text('Wind: ' + wind + 'MPH');
 
-        var humd = response.main.humidity;
+        var humd = response.current.humidity;
         $humd.text('Humidity: ' + humd + '%');
 
     })
@@ -67,7 +68,8 @@ function getCurrDayAPI(lat, lon)
 function get5DayAPI(lat, lon)
 {
     var  cityURL = 'https://api.openweathermap.org/data/2.5/onecall?lat='
-                  + lat + '&lon='+ lon +'&appid='+ key;
+                  + lat + '&lon='+ lon +'&units=imperial'+
+                  '&exclude=minutely,hourly'+'&appid='+ key;
     
     $.ajax
     ({
@@ -77,34 +79,34 @@ function get5DayAPI(lat, lon)
     .then(function(response)
     {
         console.log(response);
-        // for(var i = 0; i < 5; i++)
-        // {
-        //     var $date = $('#day' + i).children('.date');
-        //     var $icon = $('#day' + i).children('ul').children('.icon').children('img');
-        //     var $temp =  $('#day' + i).children('ul').children('.temp');
-        //     var $wind =  $('#day' + i).children('ul').children('.wind');
-        //     var $humd =  $('#day' + i).children('ul').children('.humd');
+        for(var i = 1; i < 6; i++)
+        {
+            var $date = $('#day' + i).children('.date');
+            var $icon = $('#day' + i).children('ul').children('.icon').children('img');
+            var $temp =  $('#day' + i).children('ul').children('.temp');
+            var $wind =  $('#day' + i).children('ul').children('.wind');
+            var $humd =  $('#day' + i).children('ul').children('.humd');
+      
+
+            var date = response.daily[i].dt;
+            var newDate = new Date(date*1000);
+            $date.text(newDate.toUTCString());
+
+            var icon = response.daily[i].weather[0].icon;
+            $icon.attr('src','http://openweathermap.org/img/wn/'+icon+'@2x.png');
+            $icon.attr('alt', response.daily[i].weather[0].description);
             
-        //     var newI = i *8;
+            var temp = response.daily[i].temp.day;
+            $temp.text('Temp: '+ temp + ' Farenheit ');
 
-        //     var date = response.list[newI].dt;
-        //     var newDate = new Date(date*1000);
-        //     $date.text(newDate.toUTCString());
+            var wind = response.daily[i].wind_speed;
+            $wind.text('Wind: ' + wind + 'MPH');
 
-        //     var icon = response.list[newI].weather[0].icon;
-        //     $icon.attr('src','http://openweathermap.org/img/wn/'+icon+'@2x.png');
-        //     $icon.attr('alt', response.list[newI].weather[0].description);
-            
-        //     var temp = response.list[newI].main.temp;
-        //     $temp.text('Temp: '+ temp + ' Kelvin ');
+            var humd = response.daily[i].humidity;
+            $humd.text('Humidity: ' + humd + '%');
 
-        //     var wind = response.list[newI].wind.speed;
-        //     $wind.text('Wind: ' + wind + 'MPH');
-
-        //     var humd = response.list[newI].main.humidity;
-        //     $humd.text('Humidity: ' + humd + '%');
-
-        // }
+        }
+        
 
     })
 }
@@ -133,3 +135,33 @@ function getCoordAPI()
 
 }
 */
+
+
+// for(var i = 0; i < 5; i++)
+        // {
+        //     var $date = $('#day' + i).children('.date');
+        //     var $icon = $('#day' + i).children('ul').children('.icon').children('img');
+        //     var $temp =  $('#day' + i).children('ul').children('.temp');
+        //     var $wind =  $('#day' + i).children('ul').children('.wind');
+        //     var $humd =  $('#day' + i).children('ul').children('.humd');
+            
+        //     var newI = i *8;
+
+        //     var date = response.list[newI].dt;
+        //     var newDate = new Date(date*1000);
+        //     $date.text(newDate.toUTCString());
+
+        //     var icon = response.list[newI].weather[0].icon;
+        //     $icon.attr('src','http://openweathermap.org/img/wn/'+icon+'@2x.png');
+        //     $icon.attr('alt', response.list[newI].weather[0].description);
+            
+        //     var temp = response.list[newI].main.temp;
+        //     $temp.text('Temp: '+ temp + ' Kelvin ');
+
+        //     var wind = response.list[newI].wind.speed;
+        //     $wind.text('Wind: ' + wind + 'MPH');
+
+        //     var humd = response.list[newI].main.humidity;
+        //     $humd.text('Humidity: ' + humd + '%');
+
+        // }
