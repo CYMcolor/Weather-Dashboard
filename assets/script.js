@@ -126,11 +126,30 @@ function storeHistory(response)
     }
     if (response.status !== 200) 
     {
-        //console.log(new saveCity(city))
-        history.push(new saveCity(city));
+        var newCity = new saveCity(city);
+    
+        history.push(newCity);
         console.log("this is history: " + history);
         localStorage.setItem("history",JSON.stringify(history));
     }
+    //create buttons
+    var $history = $("#history").children('ul');
+
+    
+    if (localStorage.getItem('history') !== null) 
+    {
+        history = JSON.parse(localStorage.getItem("history"));
+        for(i = history.length; i-- ; i>0)
+        {
+            console.log(history[i]);
+            var $li = $('<li>');
+            $li.attr('class',history[i].city)
+            $li.text(history[i].city);
+            $history.append($li);
+
+        }
+    }
+    
 
 }
 
