@@ -8,9 +8,26 @@ var saveCity = function(cty)
   this.city = cty;
 }
 
-$( document ).ready(function () 
+$( function () 
 {
-    
+    //display history that was shown inlocalstorage
+    displayHistory();
+
+    //if history was clicked on show results
+    //for dynamic elements have to call the static parent and then on click to the 
+    //actual thing that clciks
+    $("#history").on("click",'.history-btn', function(event)
+    {
+        event.preventDefault();
+        city = $(this).parent().attr('class');
+        console.log("button pressed: "+ city);
+        //call the api
+        getCoordAPI(city);
+        $(document).off("click");
+        
+    });
+
+    //city searched thorugh search bar
     $search.submit( function(event)
     {
         event.preventDefault();
@@ -22,13 +39,12 @@ $( document ).ready(function ()
         $input.attr('placeholder','enter city');
         console.log(city);
         //call the api
-        getCoordAPI();
+        getCoordAPI(city);
     });
     
-
 });
 
-function getCoordAPI()
+function getCoordAPI(city)
 {
     var coordURL = 'https://api.openweathermap.org/data/2.5/weather?q='+city+'&appid='+ key;
     $.ajax(
@@ -129,11 +145,21 @@ function storeHistory(response)
         var newCity = new saveCity(city);
     
         history.push(newCity);
-        console.log("this is history: " + history);
+        //console.log("this is history: " + history);
         localStorage.setItem("history",JSON.stringify(history));
     }
+    displayHistory();  
+
+}
+
+function displayHistory()
+{
+    var history = [];
+    if (localStorage.getItem('history') !== null) 
+    {
+        history = JSON.parse(localStorage.getItem("history"));
+    }
     //create buttons
-    
     var $history = $("#history");
     //removes current list
     $history.children('ul').remove();
@@ -143,22 +169,22 @@ function storeHistory(response)
     
     if (localStorage.getItem('history') !== null) 
     {
+        //get history info
         history = JSON.parse(localStorage.getItem("history"));
+        //loop until all the list is displayed as buttons
+        //is in descending order so the latest item is on top
         for(i = history.length; i-- ; i>0)
         {
-            console.log(history[i]);
-            var $li = $('<li class = '+history[i].city+'>');
-            var $btn = $('<button class = "history-btn">')
+            //console.log(history[i]);
+            var $li = $('<li class = '+ history[i].city+'>');
+            var $btn = $('<button class = "history-btn">');
             $btn.text(history[i].city);
             $ul.append($li);
             $li.append($btn);
             
         }
         
-        
     }
-    
-
 }
 
 /*
