@@ -133,8 +133,13 @@ function storeHistory(response)
         localStorage.setItem("history",JSON.stringify(history));
     }
     //create buttons
-    var $history = $("#history").children('ul');
-
+    
+    var $history = $("#history");
+    //removes current list
+    $history.children('ul').remove();
+    //creates new list
+    var $ul = $("<ul id= '#history-list'>");
+    $history.append($ul);
     
     if (localStorage.getItem('history') !== null) 
     {
@@ -142,12 +147,15 @@ function storeHistory(response)
         for(i = history.length; i-- ; i>0)
         {
             console.log(history[i]);
-            var $li = $('<li>');
-            $li.attr('class',history[i].city)
-            $li.text(history[i].city);
-            $history.append($li);
-
+            var $li = $('<li class = '+history[i].city+'>');
+            var $btn = $('<button class = "history-btn">')
+            $btn.text(history[i].city);
+            $ul.append($li);
+            $li.append($btn);
+            
         }
+        
+        
     }
     
 
