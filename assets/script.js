@@ -2,23 +2,21 @@ var key = 'c8502ebcdb7a83fd03a62d0aaaafa07c';
 var city = 'Houston';
 var $search = $('#search');
 var $input = $('#input');
-var history = [];
+
+var saveCity = function(cty)
+{
+  this.city = cty;
+}
 
 $( document ).ready(function () 
 {
-    var history = [];
+    
     $search.submit( function(event)
     {
         event.preventDefault();
         //get city name
         city = $input.val();
-        //store the value
         
-        //history = localStorage.getItem("history");
-
-        history.push(city);
-        localStorage.setItem("history",history);
-        console.log(history);
         //clear text area and give it a placeholder
         $input.val('');
         $input.attr('placeholder','enter city');
@@ -44,6 +42,7 @@ function getCoordAPI()
         var lat = response.coord.lat;
         var lon = response.coord.lon;
         getAPI(lat,lon);
+        storeHistory(response);        
     })
 }
 
@@ -116,6 +115,24 @@ function getAPI(lat, lon)
     })
 }
 
+
+function storeHistory(response)
+{
+    //store the city
+    var history = [];
+    if (localStorage.getItem('history') !== null) 
+    {
+        history = JSON.parse(localStorage.getItem("history"));
+    }
+    if (response.status !== 200) 
+    {
+        //console.log(new saveCity(city))
+        history.push(new saveCity(city));
+        console.log("this is history: " + history);
+        localStorage.setItem("history",JSON.stringify(history));
+    }
+
+}
 
 /*
 //async method to store values globally
