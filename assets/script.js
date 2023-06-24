@@ -20,6 +20,7 @@ $( function ()
     {
         event.preventDefault();
         city = $(this).parent().attr('class');
+
         console.log("button pressed: "+ city);
         //call the api
         getCoordAPI(city);
@@ -33,7 +34,6 @@ $( function ()
         event.preventDefault();
         //get city name
         city = $input.val();
-        
         //clear text area and give it a placeholder
         $input.val('');
         $input.attr('placeholder','enter city');
@@ -58,7 +58,8 @@ function getCoordAPI(city)
         var lat = response.coord.lat;
         var lon = response.coord.lon;
         getAPI(lat,lon);
-        storeHistory(response);        
+        var city = response.name;
+        storeHistory(response, city);        
     })
 }
 
@@ -131,8 +132,7 @@ function getAPI(lat, lon)
     })
 }
 
-
-function storeHistory(response)
+function storeHistory(response, city)
 {
     //store the city
     var history = [];
@@ -144,23 +144,23 @@ function storeHistory(response)
     {
         var newCity = new saveCity(city);
         //check if city already exists
-        var replace = checkRepeat(history);
-        console.log("index replacement " + replace);
+        var replace = checkRepeat(history, city);
         
         //if there is a repeat remove it from the list from its previous postion
         if( replace !== false)
         {
             history.splice(replace, 1);
-        }     
+        }  
+        //put current city to end of list   
         history.push(newCity);
-        //console.log("this is history: " + history);
         localStorage.setItem("history",JSON.stringify(history));
     }
+
     displayHistory();  
 
 }
 
-function checkRepeat(history)
+function checkRepeat(history, city)
 {
     //checks if there is a repeat and send the index at repeat
     var ind;
