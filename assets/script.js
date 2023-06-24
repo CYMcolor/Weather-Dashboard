@@ -84,7 +84,7 @@ function getAPI(lat, lon)
         var $humd =  $('#current').children('ul').children('.humd');
         var date = response.current.dt;
         var newDate = new Date(date*1000);
-        $date.text(newDate.toDateString());
+        $date.text(city + " " +newDate.toDateString());
 
         var icon = response.current.weather[0].icon;
         $icon.attr('src','http://openweathermap.org/img/wn/'+icon+'@2x.png');
@@ -143,13 +143,38 @@ function storeHistory(response)
     if (response.status !== 200) 
     {
         var newCity = new saveCity(city);
-    
+        //check if city already exists
+        var replace = checkRepeat(history);
+        console.log("index replacement " + replace);
+        
+        //if there is a repeat remove it from the list from its previous postion
+        if( replace !== false)
+        {
+            history.splice(replace, 1);
+        }     
         history.push(newCity);
         //console.log("this is history: " + history);
         localStorage.setItem("history",JSON.stringify(history));
     }
     displayHistory();  
 
+}
+
+function checkRepeat(history)
+{
+    //checks if there is a repeat and send the index at repeat
+    var ind;
+    console.log(JSON.stringify(history));
+        for(var i = 0; i< history.length; i++)
+        {
+            if(history[i].city === city)
+            {
+                ind = i;
+                console.log("already exists");
+                return ind;
+            }         
+        }
+    return false;
 }
 
 function displayHistory()
