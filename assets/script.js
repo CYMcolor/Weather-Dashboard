@@ -31,13 +31,14 @@ $( function ()
     //city searched thorugh search bar
     $search.submit( function(event)
     {
+
         event.preventDefault();
         //get city name
         city = $input.val();
         //clear text area and give it a placeholder
         $input.val('');
         $input.attr('placeholder','enter city');
-        console.log(city);
+
         //call the api
         getCoordAPI(city);
     });
@@ -53,17 +54,22 @@ function getCoordAPI(city)
         method: "GET"
     })
     .then(function(response)
-    {
-        console.log(response);
+    {   
+        //get city name
+        var city = response.name;
+        console.log(city);
+        //get coordinates
+        //console.log(response);
         var lat = response.coord.lat;
         var lon = response.coord.lon;
-        getAPI(lat,lon);
-        var city = response.name;
+        //show weather api
+        getWeatherAPI(lat,lon);
+        //stores the history
         storeHistory(response, city);        
     })
 }
 
-function getAPI(lat, lon)
+function getWeatherAPI(lat, lon)
 {
     var  cityURL = 'https://api.openweathermap.org/data/2.5/onecall?lat='
                   + lat + '&lon='+ lon +'&units=imperial'+
@@ -78,11 +84,15 @@ function getAPI(lat, lon)
     {
         console.log(response);
         ///current--------------------------------------------------------
+        var $name = $('#current').children('#city-name');
         var $date = $('#current').children('.date');
         var $icon = $('#current').children('ul').children('.icon').children('img');
         var $temp =  $('#current').children('ul').children('.temp');
         var $wind =  $('#current').children('ul').children('.wind');
         var $humd =  $('#current').children('ul').children('.humd');
+
+        $name.text(city);
+
         var date = response.current.dt;
         var newDate = new Date(date*1000);
         $date.text(city + " " +newDate.toDateString());
@@ -164,16 +174,16 @@ function checkRepeat(history, city)
 {
     //checks if there is a repeat and send the index at repeat
     var ind;
-    console.log(JSON.stringify(history));
-        for(var i = 0; i< history.length; i++)
-        {
-            if(history[i].city === city)
+    //console.log(JSON.stringify(history));
+    for(var i = 0; i< history.length; i++)
+    {
+        if(history[i].city === city)
             {
-                ind = i;
-                console.log("already exists");
-                return ind;
-            }         
-        }
+            ind = i;
+            //console.log("already exists");
+            return ind;
+        }         
+    }
     return false;
 }
 
