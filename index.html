@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Weather Dashboard</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="./assets/style.css" />
     </head>
 
@@ -14,7 +14,10 @@
             <h1>Weather DashBoard</h1>
         </header>
 
-        <aside>
+        <aside  id="mySidebar" class="w3-sidebar w3-bar-block w3-collapse w3-card">
+            <button  class="w3-bar-item w3-button w3-hide-large" onclick="w3_close()">
+                Close &times;
+            </button>
             <h3> Search for a City: </h3>
             <form id= "search">
                 <input type ="text" id="input" placeholder="enter city" class="form-label">
@@ -28,8 +31,8 @@
             </div>
         </aside>
 
-        <main>
-            
+        <main class="w3-main">
+            <button id="openNav" class="w3-button w3-teal w3-xlarge" onclick="w3_open()">&#9776;</button>
             <div id = "current" class="card m-1 p-4" >
                 
                 <h2 class ="city-name card-title" ></h2>
