@@ -35,6 +35,7 @@ $( function ()
         event.preventDefault();
         //get city name
         city = $input.val();
+        city = city.replace('+', ' ');
         //clear text area and give it a placeholder
         $input.val('');
         $input.attr('placeholder','enter city');
@@ -56,10 +57,10 @@ function getCoordAPI(city)
     .then(function(response)
     {   
         //get city name
-        city = response.name;
+        var city = response.name;
         console.log(city);
         //get coordinates
-        //console.log(response);
+        console.log(response);
         var lat = response.coord.lat;
         var lon = response.coord.lon;
         //show weather api
@@ -93,7 +94,6 @@ function getWeatherAPI(lat, lon, city)
 
         $name.text(city);
     
-
         var date = response.current.dt;
         var newDate = new Date(date*1000);
         $date.text(newDate.toDateString());
@@ -178,10 +178,9 @@ function checkRepeat(history, city)
     //console.log(JSON.stringify(history));
     for(var i = 0; i< history.length; i++)
     {
-        if(history[i].city === city)
-            {
+        if(history[i].city == city)
+        {
             ind = i;
-            //console.log("already exists");
             return ind;
         }         
     }
@@ -212,7 +211,11 @@ function displayHistory()
         for(i = history.length; i-- ; i>0)
         {
             //console.log(history[i]);
-            var $li = $('<li class = '+ history[i].city+'>');
+            var city = history[i].city;
+            //make it so the the city replaces spaces with +, so the class can be read properly
+            city = city.replace(/\s/g , "+");
+            //console.log("new replace: " +city)
+            var $li = $('<li class = '+ city+'>');
             var $btn = $('<button class = "history-btn btn btn-secondary">');
             $btn.text(history[i].city);
             $ul.append($li);
