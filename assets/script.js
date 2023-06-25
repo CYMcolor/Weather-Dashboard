@@ -56,20 +56,20 @@ function getCoordAPI(city)
     .then(function(response)
     {   
         //get city name
-        var city = response.name;
+        city = response.name;
         console.log(city);
         //get coordinates
         //console.log(response);
         var lat = response.coord.lat;
         var lon = response.coord.lon;
         //show weather api
-        getWeatherAPI(lat,lon);
+        getWeatherAPI(lat,lon, city);
         //stores the history
         storeHistory(response, city);        
     })
 }
 
-function getWeatherAPI(lat, lon)
+function getWeatherAPI(lat, lon, city)
 {
     var  cityURL = 'https://api.openweathermap.org/data/2.5/onecall?lat='
                   + lat + '&lon='+ lon +'&units=imperial'+
@@ -84,7 +84,7 @@ function getWeatherAPI(lat, lon)
     {
         console.log(response);
         ///current--------------------------------------------------------
-        var $name = $('#current').children('#city-name');
+        var $name = $('#current').children('.city-name');
         var $date = $('#current').children('.date');
         var $icon = $('#current').children('ul').children('.icon').children('img');
         var $temp =  $('#current').children('ul').children('.temp');
@@ -92,10 +92,11 @@ function getWeatherAPI(lat, lon)
         var $humd =  $('#current').children('ul').children('.humd');
 
         $name.text(city);
+    
 
         var date = response.current.dt;
         var newDate = new Date(date*1000);
-        $date.text(city + " " +newDate.toDateString());
+        $date.text(newDate.toDateString());
 
         var icon = response.current.weather[0].icon;
         $icon.attr('src','http://openweathermap.org/img/wn/'+icon+'@2x.png');
@@ -212,7 +213,7 @@ function displayHistory()
         {
             //console.log(history[i]);
             var $li = $('<li class = '+ history[i].city+'>');
-            var $btn = $('<button class = "history-btn">');
+            var $btn = $('<button class = "history-btn btn btn-secondary">');
             $btn.text(history[i].city);
             $ul.append($li);
             $li.append($btn);

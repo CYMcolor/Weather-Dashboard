@@ -1,0 +1,17 @@
+
+li
+{
+    list-style-type: none;
+    
+}
+
+ul
+{
+    padding: 0;
+}
+
+.forecast
+{
+    display: flex;
+    flex-wrap: wrap;
+}
