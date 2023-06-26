@@ -1,15 +1,29 @@
-
-main
+*:root
 {
-    margin-left: 200px;
+    --sideSize: 250px;
 }
 
-aside
+header
 {
-    width:200px;
+    background-color:lightskyblue;
+    margin: 0;
+    padding: 10px;
+}
+
+.w3-sidebar
+{
+    height: 93%;
+    width: var(--sideSize);
     z-index:2;
     display:none;
 }
+
+main
+{
+    margin-left: var(--sideSize);
+    padding: 50px;
+}
+
 
 input[type="text"]
 {
@@ -20,8 +34,8 @@ input[type="text"]
 .btn, #input
 {
     margin: 3px;
-    min-width: 175px;
-    max-width: 175px;
+    min-width: 225px;
+    max-width: 225px;
 }
 
 aside > *
@@ -29,12 +43,19 @@ aside > *
     margin: 5px;
 }
 
-@media screen and (min-width: 992px) /*screen is less than 768*/
+@media screen and (min-width: 992px) /*screen is less than 992*/
 {
     #openNav
     {
         display: none;
     }
+}
+
+#search
+{
+    border-bottom: 5px solid;
+    color: lightgrey;
+    padding-bottom: 5px;
 }
 
 li
@@ -48,9 +69,25 @@ ul
     padding: 0;
 }
 
+#current
+{
+    max-width: 65rem;
+    background-color:rgb(251, 255, 181);
+}
+
 .forecast
 {
-    display: flex;
-    flex-wrap: wrap;
+    max-width: 13rem;
+    background-color:rgb(203, 235, 255);
+    padding: 5px;
+    
+}
+
+.forecast img
+{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
 }
 
