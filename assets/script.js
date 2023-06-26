@@ -101,6 +101,7 @@ function getWeatherAPI(lat, lon, city)
         var icon = response.current.weather[0].icon;
         $icon.attr('src','http://openweathermap.org/img/wn/'+icon+'@2x.png');
         $icon.attr('alt', response.current.weather[0].description);
+        $icon.attr('title', response.current.weather[0].description);
 
         var temp = response.current.temp;
         $temp.text('Temp: '+ temp + ' °F ');
@@ -129,6 +130,7 @@ function getWeatherAPI(lat, lon, city)
             var icon = currData.weather[0].icon;
             $icon.attr('src','http://openweathermap.org/img/wn/'+icon+'@2x.png');
             $icon.attr('alt', currData.weather[0].description);
+            $icon.attr('title', currData.weather[0].description);
             
             var temp = currData.temp.day;
             $temp.text('Temp: '+ temp + ' °F ');
