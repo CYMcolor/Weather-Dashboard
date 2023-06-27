@@ -33,5 +33,7 @@ Please refer to the LICENSE in the repo.
 
 ## Link/Screentshot
 
+https://cymcolor.github.io/Weather-Dashboard/
 
-![mod6hwscreenshot](./assets/img/mod6hwscreenshot-bigscreen.PNG)
+![mod6hwscreenshot-big-screen](./assets/img/mod6hwscreenshot-bigscreen.PNG)
+![mod6hwscreenshot-small-screen](./assets/img/mod6hwscreenshot-smallscreen.PNG)
