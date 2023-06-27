@@ -24,9 +24,10 @@ $( function ()
         console.log("button pressed: "+ city);
         //call the api
         getCoordAPI(city);
-        $(document).off("click");
         //if screen is smaller than 992px close sidebar
         closeSideOnSearch();
+        //clears warning message
+        $("#warning").text('');
     });
 
     //city searched thorugh search bar
@@ -45,6 +46,8 @@ $( function ()
         getCoordAPI(city);
         //if screen is smaller than 992px close sidebar
         closeSideOnSearch();
+        //clears warning message
+        $("#warning").text('');
     });
     
 });
@@ -55,7 +58,13 @@ function getCoordAPI(city)
     $.ajax(
     {
         url: coordURL,
-        method: "GET"
+        method: "GET",
+        error: function(response)
+        {
+            $("#warning").text('*'+city+' cannot be found');
+            console.log(response.status);
+        }
+
     })
     .then(function(response)
     {   

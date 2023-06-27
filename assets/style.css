@@ -60,6 +60,11 @@ input[type="text"]
     padding-bottom: 5px;
 }
 
+#warning
+{
+    color: red;
+}
+
 li
 {
     list-style-type: none;
