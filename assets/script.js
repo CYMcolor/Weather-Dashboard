@@ -25,7 +25,8 @@ $( function ()
         //call the api
         getCoordAPI(city);
         $(document).off("click");
-        
+        //if screen is smaller than 992px close sidebar
+        closeSideOnSearch();
     });
 
     //city searched thorugh search bar
@@ -42,6 +43,8 @@ $( function ()
 
         //call the api
         getCoordAPI(city);
+        //if screen is smaller than 992px close sidebar
+        closeSideOnSearch();
     });
     
 });
@@ -238,26 +241,12 @@ function w3_close()
 {
     document.getElementById("mySidebar").style.display = "none";
 }
-/*
-//async method to store values globally
-var coord;
-getCoordAPI();
 
-console.log(JSON.parse(coord));
-function getCoordAPI()
+function closeSideOnSearch()
 {
-    var coordURL = 'https://api.openweathermap.org/data/2.5/weather?q=Houston,Texas&appid='+ key;
-    $.ajax(
+    //only if the screen is small enough
+    if (window.innerWidth < 992 ) 
     {
-        async: false,
-        url: coordURL,
-        method: "GET",
-        dataType: 'json',
-        success:function(data)
-        {
-            coord = JSON.stringify(data);
-        } 
-    })
-
-}
-*/
+        document.getElementById("mySidebar").style.display = "none";
+    }
+};

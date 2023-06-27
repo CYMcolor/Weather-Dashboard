@@ -33,7 +33,7 @@
         </aside>
 
         <main class="w3-main">
-            <button id="openNav" class="w3-button w3-blue w3-xlarge" onclick="w3_open()">&#9776;</button>
+            <button id="openNav" class="w3-button w3-light-blue w3-xlarge" onclick="w3_open()">🔍</button>
             <div id = "current" class="card m-1 p-4" >
                 
                 <h2 class ="city-name card-title" >City</h2>
@@ -172,47 +172,3 @@
     </body>
 </html>
 
-<!-- 
-if I want to add an option to choose which units are being used later
-
-    <select id="units">
-        <option value="metric">metric</option>
-        <option value="imperial">imperial</option>
-    </select>
-    <button id="unit-btn">Change Units</button>
-
-    <script>
-    $( function() 
-    {
-        //default
-        var units = "imperial";
-
-        function unnitSelect() 
-        {
-            // get effect type from
-            var units = $( "#units" ).val();
-        
-            // Run the effect
-            $( "#effect" ).toggle( selectedEffect, options, 500 );
-        };
-    
-        // Set effect from select menu value
-        $( "#unit-btn" ).on( "click", function() 
-        {
-            unitSelect();
-            getCoord(city); 
-        });
-    });
-
-    </script>
-
-    // would need to change getWeatherAPI to have the units to the selectedstate
-    imperial: 
-        temp in farhenheit
-        windspeed in MPH
-
-    metric: 
-        temp in celcius
-        windspeed in meter/sec
-
--->

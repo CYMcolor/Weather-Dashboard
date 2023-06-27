@@ -18,6 +18,12 @@ header
     display:none;
 }
 
+aside > *
+{
+    margin: 5px;
+}
+
+
 main
 {
     margin-left: var(--sideSize);
@@ -38,10 +44,6 @@ input[type="text"]
     max-width: 225px;
 }
 
-aside > *
-{
-    margin: 5px;
-}
 
 @media screen and (min-width: 992px) /*screen is less than 992*/
 {
