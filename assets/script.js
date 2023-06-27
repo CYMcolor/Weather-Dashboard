@@ -22,6 +22,7 @@ $( function ()
         city = $(this).parent().attr('class');
 
         console.log("button pressed: "+ city);
+        
         //call the api
         getCoordAPI(city);
         //if screen is smaller than 992px close sidebar
@@ -41,13 +42,18 @@ $( function ()
         //clear text area and give it a placeholder
         $input.val('');
         $input.attr('placeholder','enter city');
-
-        //call the api
-        getCoordAPI(city);
-        //if screen is smaller than 992px close sidebar
-        closeSideOnSearch();
-        //clears warning message
-        $("#warning").text('');
+        if (city !=='')
+        {
+            //call the api
+            getCoordAPI(city);
+            //if screen is smaller than 992px close sidebar
+            closeSideOnSearch();
+            //clears warning message
+            $("#warning").text('');
+        }
+        else
+            $("#warning").text('*A city was not entered');
+        
     });
     
 });
