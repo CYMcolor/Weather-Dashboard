@@ -22,7 +22,7 @@ Weather API: https://openweathermap.org/api
 
 CSS framework for the buttons and the cards: https://getbootstrap.com/
 
-Css framework for the sidebar: https://www.w3schools.com/w3css/ (* it includes small snipets of js code too)
+CSS framework for the sidebar: https://www.w3schools.com/w3css/ (* it includes small snipets of js code too)
 
 
 
@@ -35,5 +35,7 @@ Please refer to the LICENSE in the repo.
 
 https://cymcolor.github.io/Weather-Dashboard/
 
+Large screen version
 ![mod6hwscreenshot-big-screen](./assets/img/mod6hwscreenshot-bigscreen.PNG)
+Small screen version
 ![mod6hwscreenshot-small-screen](./assets/img/mod6hwscreenshot-smallscreen.PNG)
