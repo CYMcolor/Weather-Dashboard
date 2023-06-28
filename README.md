@@ -37,5 +37,7 @@ https://cymcolor.github.io/Weather-Dashboard/
 
 Large screen version
 ![mod6hwscreenshot-big-screen](./assets/img/mod6hwscreenshot-bigscreen.PNG)
+
 Small screen version
+
 ![mod6hwscreenshot-small-screen](./assets/img/mod6hwscreenshot-smallscreen.PNG)
