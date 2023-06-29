@@ -24,7 +24,7 @@ CSS framework for the buttons and the cards: https://getbootstrap.com/
 
 CSS framework for the sidebar: https://www.w3schools.com/w3css/ (* it includes small snipets of js code too)
 
-
+Javascript: https://api.jquery.com/
 
 ## License
 
